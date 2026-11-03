@@ -81,15 +81,14 @@ img {display: block; max-width: 100%;}
 
 h1 {
     font-family: var(--font-head);
-    font-size: clamp(90px, 4vh, 230px);
+    font-size: clamp(48px, 8vh, 120px);
     font-weight: 800;
     line-height: 1;
-    letter-spacing: -0.02em;
 }
 
 h2 {
     font-family: var(--font-head2);
-    font-size: clamp(90px, 4vh, 130px);
+    font-size: clamp(20px, 3vh, 40px);
     font-weight: 800;
     line-height: 1;
 }
@@ -125,6 +124,7 @@ section > h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-width: 0;
 }
 
 #HEADER nav::before {
@@ -140,6 +140,11 @@ section > h1 {
     display: flex;
     justify-content: flex-end;
     gap: 0;
+    height: 100%;
+}
+
+#HEADER li {
+    height: 100%;
 }
 
 #HEADER a {
@@ -148,11 +153,12 @@ section > h1 {
     display: flex;
     align-items: center;                 
     height: 100%;
-    padding: 16px clamp(16px, 2.2vw, 32px);
+    padding: 0px clamp(16px, 2.2vw, 32px);
     font-size: 13px;
     font-weight: 800;
     letter-spacing: .1em;
     text-transform: uppercase;
+    white-space: nowrap;
     color: var(--blue);
     transition: color .25s ease;
 }
@@ -168,11 +174,11 @@ section > h1 {
     transition: transform .30s ease;
 }
 
-#HEADER a:hover::after, #HEADER a.active::after {
+#HEADER a.active::after {
     transform: scaleX(1);
 }
 
-#HEADER a:hover, #HEADER a.active {
+#HEADER a.active {
     color: #ffffff;
 }
 
@@ -184,18 +190,6 @@ section > h1 {
     text-align: center;
 }
 
-.hero-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    min-height: calc(100vh - var(--nav-h, 80px));
-    width: 100%;
-    box-sizing: border-box;
-}
-
 .hi {
     font-family: var(--font-head);
     font-size: clamp(18px, 2.4vw, 28px);
@@ -205,15 +199,15 @@ section > h1 {
 
 .logo-text {
     font-family: var(--font-logo);
-    font-size: clamp(100px, 16vw, 200px);
+    font-size: clamp(48px, 16vw, 200px);
     color: var(--blue);
     line-height: .9;
+    max-width: 100%;
 }
 
 #ABOUT-ME {
     justify-content: flex-start;
     padding: clamp(16px, 3vh, 40px);
-    padding-bottom: clamp(16px, 3vh, 40px);
 }
 
 #ABOUT-ME > h1 {
@@ -229,12 +223,6 @@ section > h1 {
     align-items: center;
     gap: clamp(32px, 6vh, 96px);
     margin-top: 0;
-}
-
-.about-description{
-    margin-top: 16px;
-    font-size: clamp(16px, 1.5vw, 22px);
-    color: var(--muted-blue);
 }
 
 .formal-picture {
@@ -292,13 +280,12 @@ section > h1 {
     text-align: center;
 }
 
-
 .gallery {
     --h: clamp(150px, 30vh, 400px);
     display: flex;
     gap: 12px;
     flex-wrap: nowrap;
-    height: clamp(150px, 30vh, 480px);
+    height: var(--h);
     justify-content: center;
 }
 
@@ -306,8 +293,9 @@ section > h1 {
     position: relative;
     flex: none;
     height: var(--h);
-    width: calc(var(--h) * 1 / 4);
-    aspect-ratio: 1 / 4;
+    width: calc(var(--h) / 4);
+    padding: 0;
+    font: inherit;
     overflow: hidden;
     border: 1px solid var(--blue);
     background: var(--blue-pale);
@@ -391,9 +379,12 @@ section > h1 {
     transition: background .2s color .2s;
 }
 
-#CONTACT a:hover {
-    background: #ffffff;
-    color: var(--blue);
+@media (hover: hover) {
+
+    #CONTACT a:hover {
+        background: #ffffff;
+        color: var(--blue);
+    }
 }
 
 .icon {
@@ -409,30 +400,78 @@ section > h1 {
     color: var(--muted-blue);
 }
 
+@media (hover: hover) {
+    #HEADER a:hover::after {
+        transform: scaleX(1);
+    }
+
+    #HEADER a:hover {
+        color: #ffffff;
+    }
+}
+
+
 @media (max-width: 700px) {
-    #HEADER nav {
-        justify-content: center;
-    }
 
-    #HEADER nav::before {
-        display: none;
-    }
-
+    html {scroll-snap-type: none;}
+    section {scroll-snap-stop: normal;}
+    #HEADER {padding: 0;}
+    #HEADER nav {justify-content: center;}
+    #HEADER nav::before {display: none;}
+    
     #HEADER ul {
-        justify-content: center; gap: 14px;
+        width: 100%;
+        justify-content: space-around;
+        gap: 0;
+    }
+    
+    #HEADER a {
+        padding: 0 clamp(5px, 1.8vw, 12px);
+        font-size: 11px;
     }
 
-    .about-grid {
+    section > h1 {font-size: clamp (40px, 12vw, 64px);}
+
+    .hi {
+        margin-bottom: 0;
+    }
+
+    #ABOUT-ME {
+        padding: 24px var(--gutter);
+    }
+
+    .about-me {
         grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 24px;
     }
 
     .formal-picture {
-        max-width: 280px;
+        width: min(70vw, 280px);
     }
 
+    .about-description {
+        margin-top: 0;
+        font-size: 16px;
+        text-align: center;
+    }
 
-    .panel {
-        transition-property: flex-grow, border-color;
+    .gallery {
+        --h: min(220px, 48vw);
+    }
+
+    #CONTACT {
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 12px;
+        padding: 32px var(--gutter);
+    }
+
+    #CONTACT h3 {
+        margin-right: 0;
+        font-size: 32px;
     }
 }
 
