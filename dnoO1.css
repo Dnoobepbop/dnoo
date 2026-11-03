@@ -60,6 +60,7 @@ body {
     line-height: 1.6;
     color: var(--blue);
     background: var(--bg);
+    height: -webkit-fill-available;
 }
 
 h1, h2, h3, p, ul, figure {margin: 0; padding: 0;}
